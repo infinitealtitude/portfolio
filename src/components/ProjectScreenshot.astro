@@ -1,0 +1,16 @@
+---
+import type { LabProject } from '../lib/content';
+import { asset } from '../lib/site';
+
+interface Props {
+  project: LabProject;
+  lazy?: boolean;
+}
+
+const { project, lazy = false } = Astro.props;
+const shot = project.screenshot;
+const image = asset(shot.file);
+---
+<a class="lab-screenshot" href={image} data-caption={shot.caption} aria-label={`Enlarge screenshot of ${project.name}`}>
+  <img src={image} alt={shot.alt} width={shot.width} height={shot.height} loading={lazy ? 'lazy' : undefined} decoding="async">
+</a>

@@ -1,0 +1,73 @@
+---
+import type { Portfolio, Star } from '../lib/content';
+
+interface Props {
+  stars: Star[];
+  themes: Portfolio['sky_themes'];
+}
+
+const { stars, themes } = Astro.props;
+const byHip = new Map(stars.map(star => [star.hip, star]));
+
+function coordinates(hips: number[]) {
+  const positions = hips.map(hip => byHip.get(hip));
+  if (positions.some(star => !star)) return '';
+  return positions.map(star => `${star?.x},${star?.y}`).join(' ');
+}
+
+// Orion's outline and belt connect the corresponding plotted catalogue stars.
+const traces = [
+  [25336, 27989, 26727, 27366, 24436, 25930, 25336],
+  [25930, 26311, 26727],
+].map(coordinates).filter(Boolean);
+const names = [
+  { hip: 24608, name: 'Capella' },
+  { hip: 32349, name: 'Sirius' },
+  { hip: 21421, name: 'Aldebaran' },
+  { hip: 37826, name: 'Pollux' },
+];
+---
+<figure class="sky-chart">
+  <div class="sky-plot">
+    <div class="celestial-flight sky-flight" data-meteor="sky" aria-hidden="true"><span class="celestial-meteor"></span></div>
+    <svg viewBox="0 0 480 480" role="img" aria-label="Projected northern and southern sky above the local horizon, with an Orion trace">
+      <g class="sky-guides"><circle cx="240" cy="240" r="214"/><circle cx="240" cy="240" r="142.67"/><circle cx="240" cy="240" r="71.33"/></g>
+      <g class="sky-traces">{traces.map(points => <polyline pathLength="1" {points} />)}</g>
+      <g class="sky-stars">
+        {stars.map(({ x, y, mag }) => (
+          <circle cx={x} cy={y} r={Math.max(0.72, 2.35 - mag * 0.47).toFixed(2)} opacity={Math.min(1, 0.94 - mag * 0.15).toFixed(2)} />
+        ))}
+      </g>
+      <g class="sky-labels">
+        {names.map(({ hip, name }) => {
+          const star = byHip.get(hip);
+          return star && <text x={star.x + 7} y={star.y - 5}>{name}</text>;
+        })}
+        {traces.length > 0 && <text x="155" y="235">Orion</text>}
+      </g>
+      <g class="sky-lines" aria-hidden="true">
+        {themes.map((theme, index) => <line x1="240" y1="240" x2={theme.x} y2={theme.y} data-sky-line={theme.id} class:list={{ active: index === 0 }} />)}
+      </g>
+    </svg>
+    {themes.map((theme, index) => (
+      <a class:list={['sky-marker', { active: index === 0 }]} href={`#${theme.target}`} data-sky-theme={theme.id}
+        style={`--x:${(theme.x / 4.8).toFixed(3)}%;--y:${(theme.y / 4.8).toFixed(3)}%`} aria-label={theme.name}>{index + 1}</a>
+    ))}
+  </div>
+  <figcaption class="sr-only">Selected stars above the geometric horizon</figcaption>
+</figure>
+<div class="sky-explorer">
+  <p class="eyebrow">Explore my work</p>
+  <ul class="sky-links" aria-label="Work themes">
+    {themes.map((theme, index) => (
+      <li class:list={{ active: index === 0 }}><a href={`#${theme.target}`} data-sky-theme={theme.id}><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>{theme.name}</a></li>
+    ))}
+  </ul>
+  <div class="sky-reading" aria-live="polite">
+    {themes.map((theme, index) => (
+      <div data-sky-panel={theme.id} hidden={index !== 0}>
+        <p>{theme.copy}</p><a href={`#${theme.target}`}>{theme.evidence}</a>
+      </div>
+    ))}
+  </div>
+</div>

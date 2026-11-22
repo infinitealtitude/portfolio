@@ -1,0 +1,28 @@
+---
+import type { Portfolio } from '../lib/content';
+
+interface Props {
+  items: Portfolio['work'];
+}
+
+const { items } = Astro.props;
+const ordered = items.toSorted((left, right) =>
+  Number(right.id === 'workflows') - Number(left.id === 'workflows'),
+);
+---
+{ordered.map(item => (
+  <article id={item.id} class:list={['case', { 'featured-case': item.id === 'workflows' }]}>
+    <p class="eyebrow">{item.category} · {item.type}</p>
+    <h3>{item.title}</h3>
+    <dl class="case-evidence">
+      <div><dt>Challenge</dt><dd>{item.challenge}</dd></div>
+      <div><dt>Responsibility</dt><dd>{item.role}</dd></div>
+      <div><dt>Result</dt><dd>{item.outcome}</dd></div>
+    </dl>
+    <details open={item.id === 'workflows'}>
+      <summary>Approach &amp; technical detail</summary>
+      <p>{item.approach}</p>
+      <ol class="diagram" aria-label="Workflow schematic">{item.diagram.map(step => <li>{step}</li>)}</ol>
+    </details>
+  </article>
+))}

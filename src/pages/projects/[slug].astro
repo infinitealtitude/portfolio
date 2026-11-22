@@ -1,0 +1,90 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import ProjectScreenshot from '../../components/ProjectScreenshot.astro';
+import StudyCards from '../../components/StudyCards.astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { portfolio, studies } from '../../lib/content';
+import { localHref, NAME, projectHref } from '../../lib/site';
+
+export const getStaticPaths = (() => portfolio.lab.map((project, index, projects) => ({
+  params: { slug: project.id },
+  props: {
+    project,
+    study: studies[project.id],
+    previous: projects[index - 1],
+    next: projects[index + 1],
+  },
+}))) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { project, study, previous, next } = Astro.props;
+const back = localHref(`index.html#${project.id}`);
+const intro = study.intro.split('\n\n');
+const facts = [
+  ['Project type', study.status],
+  ['My contribution', project.built],
+  ['Core technologies', study.technologies],
+  ['Key focus', study.focus],
+];
+---
+<SiteLayout title={`${project.name} | ${NAME}`}>
+  <main class="wrap section project-detail">
+    <header class="project-header">
+      <a href={back}>Back to Projects</a>
+      <p class="eyebrow">{study.category}</p>
+      <h1>{project.name}</h1>
+      <p class="project-status">{study.status}</p>
+      <div class="project-intro">
+        {intro.map((paragraph, index) => <p class:list={{ lead: index === 0 }}>{paragraph}</p>)}
+      </div>
+    </header>
+    <figure>
+      <ProjectScreenshot {project} />
+      <figcaption>{project.screenshot.caption}</figcaption>
+    </figure>
+    <section class="study-section" aria-labelledby="overview">
+      <h2 id="overview">At a glance</h2>
+      <dl class="study-facts">{facts.map(([label, copy]) => <div><dt>{label}</dt><dd>{copy}</dd></div>)}</dl>
+    </section>
+    <section class="study-section study-prose">
+      <h2>The challenge</h2>
+      {study.challenge.map(paragraph => <p>{paragraph}</p>)}
+    </section>
+    <section class="study-section">
+      <h2>What I built</h2>
+      <StudyCards entries={study.solution} />
+    </section>
+    {study.model && (
+      <section class="study-section study-model">
+        <h2>How the model works</h2>
+        <StudyCards entries={study.model} />
+      </section>
+    )}
+    <section class="study-section">
+      <h2>System architecture</h2>
+      <figure class="study-architecture">
+        <figcaption>{study.architecture_label}</figcaption>
+        <ol class="study-flow">{study.architecture.map(([title, copy]) => <li><strong>{title}</strong><p>{copy}</p></li>)}</ol>
+        <p>{study.boundary}</p>
+      </figure>
+    </section>
+    <section class="study-section">
+      <h2>Key capabilities</h2>
+      <StudyCards entries={study.capabilities} />
+    </section>
+    <section class="study-section">
+      <h2>Engineering decisions</h2>
+      {study.decisions.map(([title, copy]) => <details><summary>{title}</summary><p>{copy}</p></details>)}
+    </section>
+    <section class="study-section study-prose">
+      <h2>What it demonstrated</h2>
+      <p>{study.outcome}</p>
+    </section>
+    <nav class="study-navigation" aria-label="Project navigation">
+      <a href={back}>Back to Projects</a>
+      {previous && <a href={projectHref(previous.id)}><span>Previous project</span>{previous.name}</a>}
+      {next && <a href={projectHref(next.id)}><span>Next project</span>{next.name}</a>}
+    </nav>
+  </main>
+</SiteLayout>

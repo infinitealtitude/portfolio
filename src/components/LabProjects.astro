@@ -1,0 +1,26 @@
+---
+import type { LabProject } from '../lib/content';
+import { projectHref } from '../lib/site';
+import ProjectScreenshot from './ProjectScreenshot.astro';
+
+interface Props {
+  projects: LabProject[];
+}
+
+const { projects } = Astro.props;
+---
+<div class="lab-projects">
+  {projects.map(project => (
+    <article class="lab-project" id={project.id}>
+      <div>
+        <ProjectScreenshot {project} lazy />
+        {project.screenshot.label && <p class="lab-demo-note">{project.screenshot.label}</p>}
+      </div>
+      <p class="eyebrow">{project.status} · {project.category}</p>
+      <h3>{project.name}</h3>
+      <p>{project.summary}</p>
+      <p>{project.built}</p>
+      <a class="lab-action" href={projectHref(project.id)} aria-label={`Explore Project: ${project.name}`}>Explore Project</a>
+    </article>
+  ))}
+</div>

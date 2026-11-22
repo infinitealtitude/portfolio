@@ -1,0 +1,12 @@
+---
+import type { CaseStudy } from '../lib/content';
+
+interface Props {
+  entries: CaseStudy['solution'];
+}
+
+const { entries } = Astro.props;
+---
+<div class="study-cards">
+  {entries.map(([title, copy]) => <div><h3>{title}</h3><p>{copy}</p></div>)}
+</div>

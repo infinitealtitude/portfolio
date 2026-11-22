@@ -69,7 +69,7 @@ for (const [name, slug] of projects) {
     await expect(dialog).toBeVisible();
     await expect(dialog.getByRole('button', { name: 'Close preview' })).toBeFocused();
     await expect(dialog.getByRole('img')).toHaveJSProperty('naturalWidth', width);
-    await expect(dialog.getByRole('link', { name: 'Open original image' })).toHaveAttribute('href', /\/dist\/assets\//);
+    await expect(dialog.getByRole('link', { name: 'Open original image' })).toHaveAttribute('href', await screenshot.evaluate(link => link.href));
     if (slug === 'business-value-calculator') {
       await expect(dialog.getByText(/Illustrative demo data/)).toBeVisible();
     }

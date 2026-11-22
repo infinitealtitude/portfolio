@@ -1,0 +1,210 @@
+---
+import { existsSync } from 'node:fs';
+import ExpertiseRows from '../components/ExpertiseRows.astro';
+import HeroStars from '../components/HeroStars.astro';
+import JourneyEntries from '../components/JourneyEntries.astro';
+import LabProjects from '../components/LabProjects.astro';
+import SkyAmbient from '../components/SkyAmbient.astro';
+import SkyChart from '../components/SkyChart.astro';
+import WorkEntries from '../components/WorkEntries.astro';
+import WritingEntries from '../components/WritingEntries.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { portfolio, stars } from '../lib/content';
+import { asset, INSTAGRAM, LINKEDIN, SITE_TITLE } from '../lib/site';
+
+const navigation = [
+  ['Home', 'home'], ['About', 'about-me'], ['Selected Work', 'work'], ['Lab', 'lab'],
+  ['Writing', 'writing'], ['Advisory', 'advisory'], ['Beyond Work', 'infinite-altitude'], ['Contact', 'contact'],
+];
+const cutout = ['anand-portrait-cutout.webp', 'anand-portrait-cutout.png'].find(file =>
+  existsSync(`public/assets/${file}`),
+);
+const portrait = cutout ?? 'anand-portrait.jpg';
+---
+<SiteLayout title={SITE_TITLE} homepage>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a class="brand" href="#home"><img src={asset('ae.svg')} alt="" width="46" height="46"><span>Anand<br>Elangovan</span></a>
+      <button type="button" id="menu" aria-expanded="false" aria-controls="navigation" hidden>Menu</button>
+      <nav id="navigation" aria-label="Main navigation">
+        {navigation.map(([label, anchor]) => <a href={`#${anchor}`}>{label}</a>)}
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section id="home" class="hero">
+      <HeroStars />
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="hero-intro">
+            <p class="hero-name">Anand Elangovan</p>
+            <p class="positioning">Enterprise AI · Technology Strategy · Advisory</p>
+          </div>
+          <div class="hero-story">
+            <h1>Enterprise AI, technology and business strategy.</h1>
+            <p class="lead">I am Anand (aka Andy). I have spent over 14 years working with enterprises across the UK, India and Australia — designing solutions, helping businesses adopt technology and building things along the way.</p>
+            <div class="hero-actions"><a class="button primary" href="#work">Selected Work</a><a class="button outline" href={asset('anand-elangovan-cv.pdf')} download>Download CV</a></div>
+            <a class="hero-link" href={LINKEDIN}>Connect on LinkedIn</a>
+          </div>
+        </div>
+        <figure class="executive-portrait">
+          <div class:list={['portrait-frame', cutout ? 'portrait-cutout' : 'portrait-crop']}>
+            <img src={asset(portrait)} alt="Portrait of Anand Elangovan" width="768" height="768" fetchpriority="high">
+          </div>
+          <figcaption>London, UK</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section id="impact" class="light impact-section" aria-labelledby="impact-title">
+      <div class="wrap">
+        <h2 id="impact-title" class="eyebrow">Executive impact</h2>
+        <dl class="impact" aria-label="Career in numbers">
+          <div><dt>14+ years</dt><dd>Enterprise technology and consulting</dd></div>
+          <div><dt>8+ years</dt><dd>AI solutions and value-led selling</dd></div>
+          <div><dt>UK · India · Australia</dt><dd>Selected markets</dd></div>
+        </dl>
+        <div class="impact-foot"><p>Strategic enterprise accounts, regional technical leadership and hands-on AI delivery.</p><a href="#work">Explore selected work</a><a href="#journey">See career progression</a></div>
+      </div>
+    </section>
+    <section id="about-me" class="light">
+      <div class="wrap section editorial">
+        <h2>A little about me</h2>
+        <div class="about-copy">
+          <p>As a child, I took apart toys, VCRs and CD players, usually with more enthusiasm for taking them apart than putting them back together.</p>
+          <p>That curiosity led me to computer science, software development and consulting. Over more than 14 years, my work across India, Australia and the UK has taken me through engineering, enterprise AI and commercial strategy.</p>
+          <p>I still like getting my hands into the code. I want to understand how something works and why it matters to the people who will use or buy it.</p>
+          <a href="#about">Explore the constellation</a>
+        </div>
+      </div>
+    </section>
+    <section id="about" class="ink sky-scene" aria-labelledby="sky-title">
+      <SkyAmbient />
+      <div class="wrap sky-layout">
+        <header class="sky-intro">
+          <h2 id="sky-title">A moment in time.</h2>
+        </header>
+        <SkyChart stars={stars} themes={portfolio.sky_themes} />
+        <div class="sky-source">
+          <button class="sky-motion" type="button" hidden>Pause sky motion</button>
+          <details>
+            <summary>About this visual</summary>
+            <p>Star positions adapted from the <a href="https://github.com/astronexus/HYG-Database/tree/3bf37f4b2d5460e1278286320d1d62fab9b493c1/hyg">HYG Star Database v4.1</a> by David Nash / Astronexus, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. <a href="https://github.com/cosinekitty/astronomy">Astronomy Engine</a> transforms J2000 star coordinates to the local horizon. The chart projects those positions from the zenith and rotates the view as a whole. Background stars and meteors are decorative.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+    <section id="work" class="light">
+      <div class="celestial-flight celestial-edge wrap" data-meteor="accent" aria-hidden="true"><span class="celestial-meteor"></span></div>
+      <div class="wrap section ruled"><p class="eyebrow">Selected work</p><h2>From problem to working solution.</h2>
+        <div class="cases"><WorkEntries items={portfolio.work} /></div>
+      </div>
+    </section>
+    <section id="expertise" class="light" aria-labelledby="expertise-title">
+      <div class="wrap section expertise-layout">
+        <h2 id="expertise-title">Capabilities &amp; Expertise</h2>
+        <p class="lead">The disciplines, technologies and business domains I work across.</p>
+        <div class="expertise-rows"><ExpertiseRows items={portfolio.expertise} /></div>
+      </div>
+    </section>
+    <section id="journey" class="light muted" aria-labelledby="journey-title">
+      <div class="wrap section journey-layout">
+        <div class="journey-intro">
+          <p class="eyebrow">Career journey</p>
+          <h2 id="journey-title">From engineering to enterprise strategy.</h2>
+          <p>I started in software development, moved into AI consulting and global enterprise SaaS, and now lead technical and commercial strategy for enterprise AI.</p>
+          <a href={asset('anand-elangovan-cv.pdf')} download>Download CV</a>
+        </div>
+        <ol class="timeline"><JourneyEntries items={portfolio.journey} /></ol>
+      </div>
+    </section>
+    <section id="lab" class="light muted">
+      <div class="celestial-flight celestial-edge wrap" data-meteor="accent" aria-hidden="true"><span class="celestial-meteor"></span></div>
+      <div class="wrap section">
+        <div><p class="eyebrow">The lab</p><h2>I build to understand.</h2><p class="lead">The Lab is where I test ideas in code, from agent hand-offs to ROI models and internal workflow tools.</p></div>
+        <LabProjects projects={portfolio.lab} />
+      </div>
+    </section>
+    <section id="writing" class="light" aria-labelledby="writing-title">
+      <div class="wrap section">
+        <p class="eyebrow writing-kicker">Selected Writing</p>
+        <h2 id="writing-title">Ideas, observations &amp; lessons.</h2>
+        <p class="lead">Occasional writing on enterprise AI, technology strategy and lessons from working with customers.</p>
+        <div class="writing-grid"><WritingEntries items={portfolio.writing} /></div>
+        <p class="writing-more"><a href={LINKEDIN} target="_blank" rel="noopener noreferrer">More on LinkedIn</a></p>
+      </div>
+    </section>
+    <section id="advisory" class="light">
+      <div class="wrap section">
+        <div class="editorial"><div><p class="eyebrow">Startup advisory</p><h2>Working with founders and emerging technology businesses.</h2></div>
+        <div><p class="lead">My advisory work focuses on how technical products reach enterprise buyers, from positioning and business cases to market entry and enterprise readiness.</p>
+        <p>I am developing this practice for B2B SaaS and enterprise AI founders. Areas of focus include customer discovery, value selling, partner strategy and building a sales engineering practice.</p></div></div>
+        <div class="pathway">{portfolio.advisory.map((item, index) => (
+          <details open={index === 0}>
+            <summary>{item.stage}</summary>
+            <div><h3>{item.title}</h3><p>{item.copy}</p><p><strong>Possible output</strong> · {item.output}</p></div>
+          </details>
+        ))}</div>
+        <h3 class="display-small">Ways we could work together</h3>
+        <dl class="principles engagement">
+          <div><dt>Strategic advisor</dt><dd>Ongoing guidance on positioning, enterprise GTM and technology direction.</dd></div>
+          <div><dt>Fractional GTM or solutions leadership</dt><dd>Hands-on support for early enterprise sales, solution strategy and technical sales processes.</dd></div>
+          <div><dt>GTM and enterprise readiness workshops</dt><dd>Focused sessions on ICP, positioning, demos, partnerships or the enterprise buying journey.</dd></div>
+        </dl>
+        <a class="button primary" href={LINKEDIN}>Discuss startup advisory</a>
+      </div>
+    </section>
+    <section id="perspectives" class="light">
+      <div class="wrap section">
+        <p class="eyebrow">Speaking & perspectives</p><h2>Technology matters most when people understand its possibilities.</h2>
+        <p class="lead narrow">I speak about AI and contact centres at industry events, roundtables and webinars. I have represented my employer at events including SDI, Engage Customer and Digitech.</p>
+        <div class="notes">{portfolio.perspectives.map(item => <article><h3>{item.title}</h3><p>{item.copy}</p></article>)}</div>
+      </div>
+    </section>
+    <section id="infinite-altitude" class="light">
+      <div class="wrap section">
+        <div class="gallery-intro"><p class="eyebrow">Infinite Altitude</p><h2>A different perspective.</h2>
+          <p class="lead">Outside enterprise technology, I explore through aerial photography. A change of angle can reveal how familiar things fit together. Travel, motorsport and motorcycling feed that same curiosity.</p>
+        </div>
+        <div class="photo-gallery" aria-labelledby="gallery-title">
+          <div class="gallery-window">
+            <div class="gallery-track">
+              <figure class="gallery-slide">
+                <img src={asset('margate-overhead.jpg')} srcset={`${asset('margate-overhead-720.jpg')} 720w, ${asset('margate-overhead.jpg')} 1600w`} sizes="(max-width: 480px) calc(100vw - 40px), 90vw" width="1600" height="900" loading="lazy" alt="Overhead view of Margate’s harbour wall and boats at low tide">
+                <figcaption>Harbour wall at low tide</figcaption>
+              </figure>
+              <figure class="gallery-slide">
+                <img src={asset('margate-lighthouse.jpg')} srcset={`${asset('margate-lighthouse-720.jpg')} 720w, ${asset('margate-lighthouse.jpg')} 1600w`} sizes="(max-width: 480px) calc(100vw - 40px), 90vw" width="1600" height="900" loading="lazy" alt="Aerial view of Margate’s harbour lighthouse with green water beyond the pier">
+                <figcaption>Harbour lighthouse</figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="gallery-header">
+            <span id="gallery-title" class="eyebrow">Infinite Altitude / Margate</span>
+            <a href={INSTAGRAM}>Instagram · @inf_altitude</a>
+            <div class="gallery-controls" hidden>
+              <button type="button" id="gallery-toggle">Pause</button>
+              <button type="button" id="gallery-next">Next photo</button>
+            </div>
+          </div>
+          <p class="sr-only" id="gallery-status" role="status"></p>
+        </div>
+      </div>
+    </section>
+    <section id="contact" class="light muted">
+      <div class="wrap section">
+        <p class="eyebrow">Contact</p><h2>Get in touch.</h2>
+        <p class="lead narrow">I would welcome a conversation about enterprise transformation, building an AI product or taking a startup to market.</p>
+        <div class="contact-paths">
+          <article id="enterprise-contact"><h3>Enterprise & technology</h3><p>Architecture, leadership, consulting and technology opportunities.</p></article>
+          <article id="startup-contact"><h3>Startup & advisory</h3><p>Enterprise market readiness, GTM strategy and technical-commercial guidance.</p></article>
+        </div>
+        <div class="text-links"><a class="button primary" href={LINKEDIN}>Connect on LinkedIn</a><a href={asset('anand-elangovan-cv.pdf')} download>Download CV</a></div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-inner"><a class="brand" href="#home"><img src={asset('ae.svg')} alt="" width="42" height="42"><span>Anand Elangovan</span></a><span>London, UK</span></div></footer>
+</SiteLayout>
+<script>
+  import '../scripts/resume.js';
+</script>

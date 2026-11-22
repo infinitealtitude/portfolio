@@ -1,59 +1,65 @@
 # Anand Elangovan · Portfolio
 
-The site is built with semantic HTML, CSS and vanilla JavaScript. Python 3.9+ renders the editorial content into static HTML so the major sections and native disclosure controls work without JavaScript.
+Astro builds this portfolio into static HTML, CSS and JavaScript in `dist/`. The homepage, three Lab case studies, links and native disclosures are rendered at build time. Vanilla JavaScript adds the compact menu, sky explorer and motion controls, advisory stages, photo gallery and screenshot previews.
 
 ## Local preview
 
-From this directory:
-
-```sh
-python3 build.py
-python3 -m http.server 8765 --bind 127.0.0.1 --directory dist
-```
-
-Open [localhost:8765](http://127.0.0.1:8765/). If the preview server is already serving the source directory on that port, use [localhost:8765/dist/](http://127.0.0.1:8765/dist/).
-
-## Verification
-
-`python3 build.py` validates the JSON before rendering. Fix any reported file and field path in `content/`. The build requires Python 3.9 or later and has no third-party Python dependencies.
-
-For the complete developer checks, install Node.js 22 and run:
+Use Node.js from `.nvmrc` (`nvm use` if you use nvm).
 
 ```sh
 npm ci
-npx playwright install --only-shell chromium
+npm run dev
+```
+
+Open [the local portfolio](http://localhost:4321/interactive-resume/). To preview the built site, run `npm run build` and `npm run preview`.
+
+## Verification
+
+```sh
+npm run check:astro
 npm run check:js
+npx playwright install --only-shell chromium
 npm test
 ```
 
-`npm test` rebuilds and validates the output before serving it at a loopback address under `/dist/`, exercising repository-subpath URLs. To run only the build and local reference checks, use `npm run check:build`. The GitHub Actions verification workflow runs the type check and browser suite on pushes and pull requests.
-
-The browser suite checks navigation, keyboard controls, project images, the CV download, responsive widths from 320px to 1440px, static navigation without JavaScript and motion settings. Motion tests use a simulated clock to exercise scheduling and cleanup. JSDoc and the TypeScript checker verify the celestial module as plain JavaScript. There is no compilation step, and the npm packages are development-only.
+`npm test` builds and validates the output, then runs Playwright against Astro's static preview under the repository subpath. It covers navigation, keyboard controls, project images, the CV, responsive layouts from 320px to 1440px, no-JavaScript navigation and motion preferences. Use `npm run check:build` to check only the static output, including local assets, anchors and ARIA references. The Verify portfolio workflow runs on pushes and pull requests.
 
 ## Edit
 
-- `page.html` contains the section layout and editorial copy.
-- `content/portfolio.json` holds Selected Work, the career timeline, advisory stages, Lab cards and perspectives. `content/case-studies.json` holds the detailed Lab case studies. Each case-study key must match a Lab project ID.
-- `style.css` defines the palette, editorial grid, responsive layouts and motion preferences.
-- `resume.js` previews the sky themes, adds the compact menu, switches advisory stages and rotates the photo gallery.
-- `celestial-motion.js` shares the decorative meteor scheduler across the chart and accent zones. It uses intersection and visibility events to suspend work and exposes cleanup for timers, observers and listeners.
-- `assets/` contains the AE monogram, Open Graph image and supplied 2026 CV, supplied photographs and self-hosted Instrument Serif files with their licence.
+| Location | Content |
+| --- | --- |
+| `src/pages/index.astro` and `src/components/` | Home sections, shared markup and SVG artwork |
+| `src/pages/projects/[slug].astro` | Template for the three `projects/<slug>.html` pages |
+| `src/layouts/SiteLayout.astro` | Shared HTML head, social metadata, indexing metadata and screenshot script |
+| `content/portfolio.json` | Selected Work, capabilities, career timeline, advisory, Lab, perspectives, writing and sky themes |
+| `content/case-studies.json` | Lab case studies keyed by the matching Lab project ID |
+| `src/lib/content.ts` | JSON schemas and content validation for the build |
+| `src/styles/global.css` | Palette, layout, responsive behaviour and motion preferences |
+| `src/scripts/` | Browser interactions, screenshot dialog and shared meteor scheduler |
+| `public/assets/` | Published photos, screenshots, CV, monogram, social image and self-hosted font |
+| `drafts/` | Source drafts outside the published site |
+
+Keep existing anchors and project URLs when editing. Use the helpers in `src/lib/site.ts` for links and assets that need the configured site base. A new Lab project needs a portfolio entry, a matching case study and a screenshot in `public/assets/`.
 
 ## Hero portrait
 
-The current photo is a circular crop of the original supplied portrait. To enable the cut-out composition, add a genuine transparent portrait as `assets/anand-portrait-cutout.webp` or `assets/anand-portrait-cutout.png` and rebuild. Use a square canvas with the face and shoulders positioned centrally and transparent space around the subject. WebP takes precedence when both are present. Removing the cut-out restores the circular crop on the next build.
+The current photo is a circular crop of the original supplied portrait. For the cut-out composition, add a transparent `anand-portrait-cutout.webp` or `anand-portrait-cutout.png` to `public/assets/`. Use a square canvas with the face and shoulders positioned centrally and transparent space around the subject. The build selects WebP first, then PNG, then the original crop.
 
-## Release
+## GitHub Pages
 
-The default build uses noindex metadata. Serve only `dist/` and configure access controls at the hosting layer for an approved private preview. A noindex directive provides no access control.
+The expected project URL is `https://infinitealtitude.github.io/interactive-resume/`. The deployment workflow uses GitHub Pages' configured URL, including the repository path or a custom domain, for its build.
 
-After public release approval, build with the actual HTTPS homepage:
+1. Enable **GitHub Actions** as the source under **Settings → Pages**. [GitHub Pages publishing settings](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow)
+2. After the editorial release review below, run **Deploy portfolio to GitHub Pages** from `main` in the **Actions** tab. It builds and validates the site, then deploys `dist/`.
+3. Enable **Allow search indexing and include a sitemap** only when the release is ready for search. The default build emits `noindex,nofollow`. Anyone with access to the published site can still open it and download its public assets.
+
+To reproduce a release build locally, use the actual HTTPS homepage URL.
 
 ```sh
-python3 build.py --url https://example.com/portfolio/ --index
+PORTFOLIO_SITE_URL=https://infinitealtitude.github.io/interactive-resume/ PORTFOLIO_INDEX=1 npm run check:build
 ```
 
-That build adds the canonical and Open Graph URLs, the sitemap and its robots.txt reference. Asset paths are relative and work under a repository subpath. GitHub hosting and public release are pending.
+`PORTFOLIO_SITE_URL` sets the base path, homepage canonical URL and Open Graph URLs. With `PORTFOLIO_INDEX=1`, the build also emits the homepage sitemap and its `robots.txt` reference.
 
 ## Editorial approvals
 

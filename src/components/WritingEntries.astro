@@ -1,0 +1,22 @@
+---
+import type { Portfolio } from '../lib/content';
+
+interface Props {
+  items: Portfolio['writing'];
+}
+
+const { items } = Astro.props;
+const dateFormat = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC',
+});
+---
+{items.map(item => (
+  <article class="writing-card" id={`writing-${item.id}`}>
+    <p class="eyebrow writing-kicker">{item.category}</p>
+    <time datetime={item.date}>{dateFormat.format(new Date(item.date))}</time>
+    <h3>{item.title}</h3>
+    <p>{item.summary}</p>
+    <a class="writing-link" href={item.url} target="_blank" rel="noopener noreferrer"
+      aria-label={`Read on ${item.source}: ${item.title} (opens in a new tab)`}>Read on {item.source}</a>
+  </article>
+))}

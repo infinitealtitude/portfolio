@@ -1,0 +1,23 @@
+---
+import type { Portfolio } from '../lib/content';
+import { localHref } from '../lib/site';
+
+interface Props {
+  items: Portfolio['journey'];
+}
+
+const { items } = Astro.props;
+---
+{items.map(item => (
+  <li class="timeline-entry">
+    <p class="timeline-date"><span>{item.dates}</span> <span>{item.region}</span></p>
+    {item.background && <p class="timeline-background">{item.background}</p>}
+    <h3>{item.company}</h3>
+    <p class="timeline-role">{item.role}</p>
+    <p>{item.scope}</p>
+    <p class="timeline-contribution"><strong>Selected contribution</strong> {item.contribution}</p>
+    {item.related_work && item.related_work.length > 0 && (
+      <p class="timeline-links">{item.related_work.map(link => <a href={localHref(link.href)}>{link.label}</a>)}</p>
+    )}
+  </li>
+))}

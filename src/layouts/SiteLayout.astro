@@ -1,0 +1,55 @@
+---
+import { getSiteConfig } from '../lib/site-config.mjs';
+import { asset, DESCRIPTION, LINKEDIN, NAME } from '../lib/site';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  homepage?: boolean;
+}
+
+const { title, homepage = false } = Astro.props;
+const { homepage: canonical, indexable } = getSiteConfig();
+const socialImage = canonical ? new URL('assets/social.png', canonical).href : asset('social.png');
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: NAME,
+  sameAs: [LINKEDIN],
+  knowsAbout: ['Enterprise AI', 'Technology strategy', 'Solution engineering', 'Startup go-to-market'],
+  url: canonical,
+};
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{title}</title>
+    <link rel="icon" href={asset('ae.svg')} type="image/svg+xml">
+    {(!indexable || homepage) && <meta name="robots" content={indexable ? 'index,follow' : 'noindex,nofollow'}>}
+    {homepage && (
+      <Fragment>
+        <meta name="theme-color" content="#19272B">
+        <meta name="description" content={DESCRIPTION}>
+        <meta property="og:type" content="profile">
+        <meta property="og:title" content={title}>
+        <meta property="og:description" content={DESCRIPTION}>
+        <meta property="og:image" content={socialImage}>
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:image:alt" content="Anand Elangovan, Enterprise AI, technology and business strategy.">
+        <meta name="twitter:card" content="summary_large_image">
+        {canonical && <link rel="canonical" href={canonical}>}
+        {canonical && <meta property="og:url" content={canonical}>}
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(person).replaceAll('<', '\\u003c')} />
+      </Fragment>
+    )}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+<script>
+  import '../scripts/image-preview.js';
+</script>
