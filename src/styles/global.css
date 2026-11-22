@@ -124,6 +124,7 @@ details[open] > summary::after { content: '−'; }
 .contact-paths article:target { border-color: var(--oxide-light); }
 footer { border-top: 1px solid var(--light-line); }
 .footer-inner { font-size: .92rem; color: var(--graphite); }
+.footer-meta { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .25rem 1rem; margin-inline-start: auto; text-align: end; }
 @media (max-width: 61rem) {
   .pathway { display: block; }
   .pathway details + details { border-left: 0; border-top: 1px solid var(--rule); }
@@ -146,6 +147,7 @@ footer { border-top: 1px solid var(--light-line); }
   .principles div { grid-template-columns: 1fr; }
   .contact-paths article { padding-bottom: .8rem; }
   .footer-inner { flex-wrap: wrap; gap: .35rem; }
+  .footer-meta { flex-basis: 100%; flex-direction: column; margin-inline-start: 0; text-align: start; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

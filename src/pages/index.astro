@@ -203,7 +203,16 @@ const portrait = cutout ?? 'anand-portrait.jpg';
       </div>
     </section>
   </main>
-  <footer><div class="wrap footer-inner"><a class="brand" href="#home"><img src={asset('ae.svg')} alt="" width="42" height="42"><span>Anand Elangovan</span></a><span>London, UK</span></div></footer>
+  <footer>
+    <div class="wrap footer-inner">
+      <a class="brand" href="#home"><img src={asset('ae.svg')} alt="" width="42" height="42"><span>Anand Elangovan</span></a>
+      <span>London, UK</span>
+      <div class="footer-meta">
+        <span>© {new Date().getUTCFullYear()} Anand Elangovan</span>
+        <span>Designed by Andy · Built with Codex</span>
+      </div>
+    </div>
+  </footer>
 </SiteLayout>
 <script>
   import '../scripts/resume.js';
