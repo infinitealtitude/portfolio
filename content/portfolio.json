@@ -1,0 +1,340 @@
+{
+  "work": [
+    {
+      "id": "conversation",
+      "category": "Enterprise AI",
+      "title": "Conversational AI for telecoms",
+      "summary": "Designing a self-service route for customer enquiries with IBM Watson.",
+      "diagram": [
+        "Customer enquiry",
+        "Watson chatbot",
+        "Self-service support"
+      ],
+      "outcome": "The implementation targeted automated enquiry handling and self-service.",
+      "type": "Customer implementation",
+      "challenge": "Give customers of a major Australian telecoms provider a self-service route for enquiries.",
+      "role": "I led IBM Watson technology consulting and owned the chatbot backlog at EdgeVerve.",
+      "approach": "I prioritised user stories and ran daily Scrum meetings to organise the work around customer enquiries."
+    },
+    {
+      "id": "workflows",
+      "category": "Systems Architecture",
+      "title": "AI agents in enterprise workflows",
+      "summary": "Using working prototypes to explore how agents interact with operational systems.",
+      "diagram": [
+        "Operational request",
+        "Agent workflow",
+        "REST API",
+        "AWS-hosted service"
+      ],
+      "outcome": "Demonstrated end-to-end agent workflows, system integration and automation.",
+      "type": "Working prototypes",
+      "challenge": "Show how an agent can complete operational work across connected enterprise systems.",
+      "role": "I built working retail, vendor-management and banking prototypes at DevRev.",
+      "approach": "I connected REST APIs and AWS-hosted services so stakeholders could inspect the hand-offs between request, agent and system."
+    },
+    {
+      "id": "accelerators",
+      "category": "Technical Accelerators",
+      "title": "Practical tools for solution teams",
+      "summary": "Building an ROI calculator and a dashboard to support technical engagements.",
+      "diagram": [
+        "Commercial assumptions",
+        "ROI model",
+        "Value discussion"
+      ],
+      "outcome": "Delivered working internal tools for value modelling and engagement visibility.",
+      "type": "Internal tools",
+      "challenge": "Make commercial assumptions and technical engagement activity easier to discuss.",
+      "role": "I built an ROI calculator and a solutions engineering dashboard at DevRev.",
+      "approach": "I used Claude Code and Cursor to build tools for value modelling and engagement visibility."
+    },
+    {
+      "id": "commercial",
+      "category": "Commercial Strategy",
+      "title": "Technical evidence for enterprise buyers",
+      "summary": "Connecting account strategy with industry-specific demos and guided trials.",
+      "diagram": [
+        "Account discovery",
+        "Customer-specific demo",
+        "Guided evaluation"
+      ],
+      "outcome": "Supported enterprise evaluations and helped identify cross-sell and upsell opportunities.",
+      "type": "Demos and guided trials",
+      "challenge": "Give enterprise buying teams evidence to evaluate fit across CRM, support and IT.",
+      "role": "I worked with regional sales teams at Freshworks on qualification, demos and trials.",
+      "approach": "I mapped customer requirements, built customer-specific demos and used anonymised customer data in proposals."
+    }
+  ],
+  "expertise": [
+    {
+      "category": "AI & Engineering",
+      "capabilities": [
+        "Agentic AI and AI agents", "Large Language Models", "Contextual memory and retrieval",
+        "Python", "TypeScript", "REST APIs", "AWS ECS/Fargate", "Docker", "AI workflow development"
+      ],
+      "tools": ["Claude Code", "OpenAI GPT", "Cursor"],
+      "evidence": [
+        {"label": "Operations workflow prototypes", "href": "projects/operations-workflow-prototypes.html"}
+      ]
+    },
+    {
+      "category": "Enterprise Architecture",
+      "capabilities": [
+        "Enterprise solution design", "Enterprise systems integration", "Cloud architecture", "AI workflow automation",
+        "Technical discovery", "API and data integration", "Proof-of-value design", "Technical solution evaluation"
+      ],
+      "evidence": [
+        {"label": "AI agents in enterprise workflows", "href": "#workflows"}
+      ]
+    },
+    {
+      "category": "Leadership & Advisory",
+      "capabilities": [
+        "Enterprise portfolio strategy", "Executive stakeholder engagement", "AI transformation", "Commercial value modelling",
+        "Business-case and ROI development", "Technical team leadership", "Strategic sales engineering", "Startup GTM strategy and advisory"
+      ],
+      "evidence": [
+        {"label": "Business value calculator", "href": "projects/business-value-calculator.html"},
+        {"label": "Startup advisory", "href": "#advisory"}
+      ]
+    },
+    {
+      "category": "Enterprise Platforms & Domains",
+      "capabilities": [
+        "Customer Relationship Management (CRM)", "IT Service Management (ITSM)", "Customer Experience (CX)",
+        "Customer Support", "IT Operations", "Enterprise workflow automation"
+      ],
+      "evidence": [
+        {"label": "Conversational AI for telecoms", "href": "#conversation"}
+      ]
+    }
+  ],
+  "journey": [
+    {
+      "dates": "Jan 2012 – Apr 2018",
+      "company": "EdgeVerve Systems",
+      "role": "Senior Consultant",
+      "region": "UK & APAC consulting",
+      "background": "Early career in software development, followed by enterprise consulting.",
+      "scope": "Worked with enterprise clients on requirements, workflows and digital delivery.",
+      "contribution": "Led IBM Watson consulting for an Australian telecoms provider and prioritised the chatbot backlog for customer self-service.",
+      "related_work": [
+        {"label": "Conversational AI for telecoms", "href": "#conversation"}
+      ]
+    },
+    {
+      "dates": "Apr 2018 – Nov 2025",
+      "company": "Freshworks",
+      "role": "Lead – Solutions Engineering",
+      "region": "UK, Ireland & India",
+      "scope": "Led solutions engineering for strategic SaaS engagements across the UK, Ireland and India, partnering with regional sales teams on account strategy, tailored demos and guided trials.",
+      "contribution": "Volunteered to help establish Freshworks’ Mumbai presence, working with sales, pre-sales and legal to support enterprise business development.",
+      "related_work": [
+        {"label": "Technical evidence for enterprise buyers", "href": "#commercial"}
+      ]
+    },
+    {
+      "dates": "Dec 2025 – Present",
+      "company": "DevRev",
+      "role": "Founding Solutions Engineer UK&I",
+      "region": "UK & Ireland",
+      "scope": "Lead technical strategy for the UK and Ireland, connecting enterprise AI architecture and workflow design with go-to-market strategy. Provide technical leadership to solutions engineers across EMEA.",
+      "contribution": "Built working agent prototypes, an ROI calculator and a solutions engineering dashboard to test integrations and support enterprise evaluations.",
+      "related_work": [
+        {"label": "Operations workflow prototypes", "href": "projects/operations-workflow-prototypes.html"},
+        {"label": "Business value calculator", "href": "projects/business-value-calculator.html"},
+        {"label": "Solutions engineering dashboard", "href": "projects/solutions-engineering-dashboard.html"}
+      ]
+    }
+  ],
+  "advisory": [
+    {
+      "stage": "Product",
+      "title": "Product–market alignment",
+      "copy": "Validate the customer problem, sharpen the product narrative and use enterprise feedback to shape packaging and demos.",
+      "output": "A customer problem statement and demo brief"
+    },
+    {
+      "stage": "Positioning",
+      "title": "Market strategy & positioning",
+      "copy": "Define the ideal customer profile, segment the market, prioritise industries and clarify the value proposition for specific buyers.",
+      "output": "An ideal customer profile and positioning statement"
+    },
+    {
+      "stage": "Market",
+      "title": "Enterprise sales & value engineering",
+      "copy": "Map buying committees, qualify opportunities and turn technical discovery into ROI models, business cases and executive narratives.",
+      "output": "An enterprise business case and buying committee map"
+    },
+    {
+      "stage": "Adoption",
+      "title": "Enterprise AI readiness",
+      "copy": "Plan for architecture, integration, data access, workflow feasibility and the operational realities of adopting AI.",
+      "output": "An integration and adoption readiness review"
+    },
+    {
+      "stage": "Growth",
+      "title": "Partnerships & ecosystems",
+      "copy": "Evaluate channels, technology alliances, implementation partners and consulting ecosystems as routes into enterprise accounts.",
+      "output": "A shortlist of partner routes and criteria for evaluating them"
+    }
+  ],
+  "lab": [
+    {
+      "id": "operations-workflow-prototypes",
+      "name": "Operations workflow prototypes",
+      "status": "Prototype",
+      "category": "AI agents",
+      "note": "A working operational model makes system boundaries and integration assumptions easier to discuss.",
+      "built": "Built retail, vendor and banking scenarios using REST APIs and AWS-hosted services to test how operational workflows could be automated.",
+      "flow": [
+        "Operational request",
+        "Agent",
+        "REST API",
+        "AWS-hosted service"
+      ],
+      "screenshot": {
+        "file": "lab-inventory-console.png",
+        "width": 1862,
+        "height": 845,
+        "alt": "Inventory and Procurement Console showing supplier records, risk ratings and CSV export",
+        "caption": "Inventory & Procurement Console · Synthetic supplier records, API key redacted"
+      },
+      "summary": "AI-enabled prototypes for operational requests, agent hand-offs and enterprise integrations."
+    },
+    {
+      "name": "Business value calculator",
+      "status": "Internal tool",
+      "category": "Value engineering",
+      "note": "Make the inputs visible so the conversation can focus on what drives the estimate.",
+      "built": "Built an internal calculator to support commercial discussions with visible modelling assumptions.",
+      "flow": [
+        "Assumptions",
+        "ROI model",
+        "Value discussion"
+      ],
+      "screenshot": {
+        "file": "lab-roi-results.png",
+        "width": 2578,
+        "height": 1650,
+        "alt": "Calculator results showing projected net benefit, ROI, payback and year-by-year financials",
+        "caption": "Illustrative demo data · Expected scenario · Projected financial and operational results",
+        "label": "Illustrative demo data"
+      },
+      "id": "business-value-calculator",
+      "summary": "A modelling tool that makes ROI assumptions, value drivers and projected benefits easier to understand."
+    },
+    {
+      "name": "Solutions engineering dashboard",
+      "status": "Internal tool",
+      "category": "Technical accelerators",
+      "note": "Shared visibility is a useful starting point for comparing how evaluations progress.",
+      "built": "Built an internal dashboard so solutions engineers could review engagement activity in one place.",
+      "flow": [
+        "Engagement activity",
+        "Dashboard",
+        "Team review"
+      ],
+      "screenshot": {
+        "file": "lab-dashboard.png",
+        "width": 3012,
+        "height": 1664,
+        "alt": "Dashboard home showing pipeline summaries, deals needing attention and today’s tasks",
+        "caption": "Solutions engineering dashboard · Seeded demonstration records"
+      },
+      "id": "solutions-engineering-dashboard",
+      "summary": "A shared view of technical engagements and team activity."
+    }
+  ],
+  "perspectives": [
+    {
+      "title": "Start AI architecture with the workflow",
+      "copy": "Map the tasks, hand-offs and exceptions before choosing a model. That reveals where an agent can act and where a person needs to stay in the loop."
+    },
+    {
+      "title": "A convincing demo answers a buying question",
+      "copy": "Work backwards from the decision the buyer needs to make. Show the part of the workflow that tests their assumptions about value or feasibility."
+    },
+    {
+      "title": "Treat enterprise readiness as product feedback",
+      "copy": "Repeated questions about data access, integrations or ownership reveal where the product needs to give buyers more confidence."
+    }
+  ],
+  "sky_themes": [
+    {
+      "id": "ai",
+      "name": "Enterprise AI",
+      "x": 139,
+      "y": 116,
+      "target": "conversation",
+      "evidence": "IBM Watson for customer self-service",
+      "copy": "Start with a real customer enquiry and decide what an automated conversation can resolve."
+    },
+    {
+      "id": "architecture",
+      "name": "Architecture",
+      "x": 333,
+      "y": 115,
+      "target": "workflows",
+      "evidence": "Agent workflows across enterprise systems",
+      "copy": "Make the hand-offs between models, data and operational systems visible enough to test."
+    },
+    {
+      "id": "engineering",
+      "name": "Engineering",
+      "x": 365,
+      "y": 272,
+      "target": "operations-workflow-prototypes",
+      "evidence": "Working operations prototypes",
+      "copy": "Build a prototype against realistic workflows so that integration assumptions can be tested."
+    },
+    {
+      "id": "commercial",
+      "name": "Commercial Strategy",
+      "x": 259,
+      "y": 363,
+      "target": "commercial",
+      "evidence": "Technical evidence for enterprise buyers",
+      "copy": "Tie the demo and trial to the decision the buying team needs to make."
+    },
+    {
+      "id": "advisory",
+      "name": "Advisory",
+      "x": 103,
+      "y": 278,
+      "target": "advisory",
+      "evidence": "Product, positioning and enterprise readiness",
+      "copy": "Connect technical product strengths with customer discovery, positioning and a route to market."
+    }
+  ],
+  "writing": [
+    {
+      "id": "ai-gap-customer-success",
+      "title": "The AI gap in Customer Success isn’t interest! It’s context.",
+      "date": "2026-06-09",
+      "category": "Enterprise AI",
+      "summary": "Why enterprise AI needs connected context, trusted data and workflows designed around real customer success tasks.",
+      "url": "https://www.linkedin.com/pulse/ai-gap-customer-success-isnt-interest-its-context-elangovan-nakoe",
+      "source": "LinkedIn"
+    },
+    {
+      "id": "beyond-the-hype",
+      "title": "Beyond the hype: AI transformation",
+      "date": "2025-07-12",
+      "category": "Technology strategy",
+      "summary": "A practical perspective on AI transformation, from organisational readiness and governance to measurable business outcomes.",
+      "url": "https://www.linkedin.com/pulse/beyond-hype-ai-transformation-anand-elangovan-qgqee?tl=en",
+      "source": "LinkedIn"
+    },
+    {
+      "id": "redefining-customer-support",
+      "title": "Redefining Customer Support in the Age of Gen AI",
+      "date": "2025-06-26",
+      "category": "Customer experience",
+      "summary": "How generative AI can support agents and improve self-service while preserving human judgement and empathy.",
+      "url": "https://www.linkedin.com/pulse/redefining-customer-support-age-gen-ai-anand-elangovan-4zwbe?tl=en",
+      "source": "LinkedIn"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "anand-interactive-portfolio",
+  "private": true,
+  "scripts": {
+    "check:build": "python3 build.py && python3 tools/validate_build.py",
+    "check:js": "tsc --allowJs --checkJs --noEmit --strict --target es2022 --lib es2022,dom,dom.iterable celestial-motion.js",
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "typescript": "5.9.3"
+  }
+}

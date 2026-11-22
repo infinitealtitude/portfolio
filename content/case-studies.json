@@ -1,0 +1,102 @@
+{
+  "operations-workflow-prototypes": {
+    "category": "Enterprise AI · Systems integration",
+    "status": "Prototype and demonstration environments",
+    "intro": "Most AI demos can answer a question. The real test is what happens when the underlying business data changes.\n\nCan an agent find the right supplier, check the latest purchase order or understand when an action needs human approval?\n\nI built realistic operational systems with structured records and REST APIs to make these integration challenges tangible, rather than relying on scripted conversations.",
+    "technologies": "FastAPI, SQLAlchemy, Pydantic, SQLite, APScheduler",
+    "focus": "Operational data, API contracts and integration boundaries",
+    "challenge": [
+      "The source system needed synthetic records that could change without a live feed. It also needed a clear boundary between the records the console provides and the decisions a consuming workflow makes about authorisation and action."
+    ],
+    "solution": [
+      ["Inventory & Procurement Console", "I built a REST application for products, suppliers, locations, inventory, purchase orders, invoices, delivery notes and stock transfers. The data browser reads the API and makes records available as CSV."],
+      ["Retail customer experience", "I built a separate retail demonstration around customer service and order management. It provided a setting for exploring how real application state affects agent responses and when a person should take over."],
+      ["Banking operations", "I built a separate simulation to explore banking operations as a workflow problem. The example was a demonstration environment for synthetic scenarios."]
+    ],
+    "architecture_label": "Inventory console · implemented data path",
+    "architecture": [
+      ["Synthetic record generator", "APScheduler invokes the demo generator every 48 hours."],
+      ["Operational records", "SQLAlchemy persists related records in the SQLite system of record."],
+      ["REST interface", "FastAPI routes expose typed request and response models."],
+      ["Data browser", "The console fetches the selected resource and offers a CSV export."]
+    ],
+    "boundary": "The diagram ends at the source application. An agent or synchronisation connector would sit beyond this API boundary.",
+    "capabilities": [
+      ["Structured records", "Separate resource routes cover procurement documents, stock movements and reference data."],
+      ["Changing demo state", "Scheduled generation gives the demonstration fresh synthetic records without needing a live operational feed."]
+    ],
+    "decisions": [
+      ["Separate the source system from the agent", "The console owns the records and their API representation. Agent retrieval, authorisation and the decision to take action belong to the consuming workflow."],
+      ["Keep the data contract explicit", "Pydantic models define API payloads, while SQLAlchemy models handle persistence. The repository also provides a configurable API-key requirement for data routes."]
+    ],
+    "outcome": "The prototypes made it possible to examine which records an agent would need, what an integration must preserve and where a workflow needs human oversight."
+  },
+  "business-value-calculator": {
+    "category": "Value engineering · Commercial technology",
+    "status": "Internal application",
+    "intro": "An impressive ROI percentage is easy to present. Understanding whether the assumptions behind it hold up is much harder.\n\nWhat happens when automation rates change, ticket volumes grow or implementation costs increase?\n\nI built a scenario-based value calculator that makes those assumptions visible, allowing buyers to explore how different inputs affect projected savings, payback and ROI.",
+    "technologies": "Next.js, TypeScript, Prisma, SQLite",
+    "focus": "Comparable scenarios and transparent assumptions",
+    "challenge": [
+      "A fair comparison needs the same operational baseline for each scenario. Buyers also need to see which inputs they have confirmed and which are still estimates."
+    ],
+    "solution": [
+      ["Opportunity workbook", "I organised the interface around an opportunity, with separate views for inputs, assumptions and results. The current-state baseline is shared across scenarios."],
+      ["Scenario modelling", "The workspace combines the shared baseline with scenario-specific inputs, then computes projections in a deterministic TypeScript engine. Scenario inputs and assumption confidence can be saved against the opportunity."]
+    ],
+    "model": [
+      ["Start with workload and cost", "The baseline captures ticket volume and growth, average handling time, and a cost model based on hourly labour or cost per ticket. The scenario adds assumptions for automation, productivity, tooling and implementation costs."],
+      ["Apply automation in sequence", "Self-service, bot and agentic AI deflection each apply to the tickets left by the previous stage. Handling-time and productivity improvements are modelled on work that remains. That lets a buyer test how changes to automation or handling time affect projected workload and hours saved."],
+      ["Translate the impact into projections", "The hourly model values time saved at the labour rate, while the per-ticket model values deflected tickets at the cost per ticket. The engine accounts for tooling and implementation costs and reports net benefit, ROI and payback. Changing costs can move those projections while hours saved stay the same."],
+      ["Read the example in context", "The Acme Corp Expected scenario starts from 120,000 annual tickets. The screenshot shows approximately 57,200 tickets deflected, 8,600 hours saved, 255% headline ROI and 1.5 months to payback. These figures are projections for an illustrative demo."]
+    ],
+    "architecture_label": "Calculator · from inputs to projections",
+    "architecture": [
+      ["Opportunity inputs", "Capture support workload, automation assumptions and costs."],
+      ["Scenario assembly", "Merge the shared current state with the selected scenario’s inputs."],
+      ["Calculation engine", "Validate inputs and project workload, costs and benefits by year."],
+      ["Results workspace", "Show projected net benefit, ROI, payback and year-by-year financials."]
+    ],
+    "boundary": "Scenario changes persist through the application API and Prisma. The result figures are model projections.",
+    "capabilities": [
+      ["Comparable scenarios", "Conservative, expected and aggressive views make the effects of changed assumptions visible."],
+      ["Operational and financial outputs", "The interface presents tickets deflected, hours saved, gross savings, net benefit and payback alongside the headline ROI."]
+    ],
+    "decisions": [
+      ["Treat confirmed inputs differently", "The workspace tracks assumption confidence and supports resetting unconfirmed values. That makes it easier to revisit estimates while retaining inputs already confirmed."],
+      ["Keep calculation logic separate from presentation", "The calculation module validates inputs such as ticket volume and deflection rates and returns structured results. Sensitivity analysis re-runs the model with varied inputs."]
+    ],
+    "outcome": "The most useful part of the model is seeing what drives the result. A scenario makes an assumption discussable, and the annual projections show where the business case depends on it."
+  },
+  "solutions-engineering-dashboard": {
+    "category": "Internal tool · Technical operations",
+    "status": "Internal application",
+    "intro": "A deal can look healthy in a pipeline while its technical evaluation is quietly losing momentum.\n\nWhen opportunity updates, engagement activity and outstanding tasks are scattered, it's easy to miss what needs attention.\n\nI built a solutions engineering dashboard that brings pipeline context, deals requiring follow-up and daily tasks into one place, making technical engagements easier to review and prioritise.",
+    "technologies": "Next.js, React, TypeScript, Prisma, PostgreSQL schema",
+    "focus": "Engagement review, priorities and next actions",
+    "challenge": [
+      "Discovery, demos and evaluations can run in parallel. The home screen needed to flag open deals with no recent activity while keeping the team’s immediate tasks in view."
+    ],
+    "solution": [
+      ["Engagement overview", "The dashboard loads opportunity records through its own deals API. The client derives pipeline figures from deal values and probabilities and highlights records that need review."],
+      ["Task review", "The home screen fetches tasks separately. Users can add tasks and update completion from the dashboard."]
+    ],
+    "architecture_label": "Dashboard · operational review path",
+    "architecture": [
+      ["Deal and task records", "The application models opportunities and tasks separately."],
+      ["Application API", "Next.js routes query the data layer through Prisma."],
+      ["Review logic", "The API filters stale open deals; the client derives pipeline summaries."],
+      ["Dashboard home", "Pipeline, attention items and tasks support an engagement review."]
+    ],
+    "boundary": "This diagram describes the dashboard’s application data path. It does not assume a CRM feed.",
+    "capabilities": [
+      ["Weighted pipeline", "The client weights each deal amount by its probability and sums the resulting values."],
+      ["Attention queue", "The deals API excludes closed opportunities and tests a five-day activity cutoff, falling back to the updated timestamp when activity is missing."]
+    ],
+    "decisions": [
+      ["Separate attention from the headline totals", "The dashboard requests a distinct stale-deal view, so users can see specific engagements needing follow-up alongside the pipeline overview."],
+      ["Keep tasks actionable", "Separate task endpoints let the dashboard change task state without modifying a deal record."]
+    ],
+    "outcome": "The dashboard demonstrated a practical way to review engagement status alongside next actions. It provides a shared basis for team updates."
+  }
+}
